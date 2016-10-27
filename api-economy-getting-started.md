@@ -209,6 +209,7 @@ In this section, you will enrich the runtime **response** API payload using Java
 7. Switch back to the API Connect designer and select the **Drafts** page.
 8. Navigate back to the **Assembly** tab.
 9. Add a GatewayScript action to the  `get /pokemon/{id}` case.
+
 	![Assembly](images/gatewayscript.png)
 10. You wil need to make some changes to the previous code for API Connect. The API Connect framework provides a simplified GatewayScript API to interact with the runtime API payload.  The API framework documentation is available [here](http://www.ibm.com/support/knowledgecenter/SSMNED_5.0.0/com.ibm.apic.toolkit.doc/rapim_context_var.html). Copy the following code into the GatewayScript action:
 	```
@@ -276,7 +277,9 @@ In this section, you will learn the consumer experience for APIs that have been 
 5. Click on the **API Products** link to see the available products published to the portal.
 6. You should see the published Pokemon API in the list of products.
 7. Click the Pokemon link and examine the available API operations. Each API definition provides sample commands / snippets to quickly test your API service. 
-		![Assembly](images/portal.png)
+
+![Assembly](images/portal.png)
+
 8. Click on the **Apps** link and follow the prompts to create a new application . This action will provide you with a new client id and secret.
 9. Click on the **Browse API** link to subscribe to the Pokemon product. Follow the prompts to subscribe to the default plan. 
 10. You can now test the Pokemon API as you have done using the built-in test tool but using a different client id. You should get the same response.
