@@ -283,10 +283,4 @@ In this section, you will learn the consumer experience for APIs that have been 
 
 ## Summary
 
-1. [Create an API definition](#create-an-api-definition)
-2. [Publish an API definition](#publish-an-api-definition)
-3. [Test an API definition](#test-an-api-definition)
-4. [Secure and optimize API message flows with an API assembly](#secure-and-optimize-api-message-flows-with-an-api-assembly)
-5. [Discover API services using the developer portal](#discover-api-services-using-the-developer-portal)
-
 In this tutorial, you learned the basics of creating, publishing and testing an API definition. This API definition exposed an existing REST service and applied assembly actions to secure and optimize JSON payloads. Finally, you discovered API services as an API consumer using the developer portal.
