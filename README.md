@@ -164,7 +164,7 @@ Let's first directly call the backend service to make sure its available, [https
 10. Click **+ Case** and select `get /pokemon/{id}`. 
 11. Click the X button to close the action. At this point both operations use the same assembly. The `get /pokemon/{id}` requires a different endpoint to be invoked that obtains an individual pokemon instead of all pokemons.
 12. Drag the existing Invoke action to the `get /pokemon` operation.
-13. Drag another Invoke action into the case for `get /pokemon/{id}` and enter the URL https://pokemons.mybluemix.net/api/pokemons/{id}. Uncheck `Stop on error` since you won't define any error handling logic.
+13. Drag another Invoke action into the case for `get /pokemon/{id}`. When you drag the action into this case, an orange box will appear to indicate the action can be added. Move around the Invoke action until you get the orange box. Enter the URL https://pokemons.mybluemix.net/api/pokemons/{id}. Uncheck `Stop on error` since you won't define any error handling logic.
 14. Both cases should use the activity-log. In the next section, you will add an action specific to the `get /pokemon/{id}` flow.
 
 	![Assembly](images/assembly.png)
@@ -235,7 +235,10 @@ In this section, you will enrich the runtime **response** API payload using Java
 11. Click on the X to close the editor menu.
 13. Save your changes.
 14. Restage and deploy the pokemon product. 
-15. Test your service again and make sure it returns the same Pokemon data but with a new attribute, `platform` containing `Powered by IBM Connect`.
+15. Test your service again and make sure it returns the same Pokemon data but with a new attribute, `platform` containing `Powered by IBM Connect`. Make sure you either clear the cache or perform a force refresh
+	* Windows: ctrl + F5
+	* Mac/Apple: Apple + R or command + R
+	* Linux: F5
 
 **Important**
 Context variables in the API assembly allow you to access runtime information:
@@ -279,18 +282,20 @@ There are several other assembly actions that you can explore, we will discuss t
 In this section, you will learn the consumer experience for APIs that have been exposed to your developer organization. Since you are playing the role of the consumer, you cannot use the same bluemix ID to access the developer portal. You will need to create a new account to play the role of an API consumer.
 
 1. Click on **Dashboard -> Sandbox -> Settings -> Portal**.
-2. In the Portal section, click the link to open the Developer Portal.
-3. In the top-right corner of the portal, click on **Create an Account** to register for the developer portal. 
-4. Follow the email prompts to create an account and login to the developer portal.
-5. Click on the **API Products** link to see the available products published to the portal.
-6. You should see the published Pokemon API in the list of products.
-7. Click the Pokemon link and examine the available API operations. Each API definition provides sample commands / snippets to quickly test your API service. 
+2. Change the URL from **none** to the pre-defined Developer portal link.
+3. Click Save. This step triggers a provisioning step that may take about 10 minutes to complete. You will get an email once its done.  
+4. In the Portal section, click the link to open the Developer Portal.
+5. In the top-right corner of the portal, click on **Create an Account** to register for the developer portal. 
+6. Follow the email prompts to create an account and login to the developer portal.
+7. Click on the **API Products** link to see the available products published to the portal.
+8. You should see the published Pokemon API in the list of products.
+9. Click the Pokemon link and examine the available API operations. Each API definition provides sample commands / snippets to quickly test your API service. 
 
 	![Assembly](images/portal.png)
 
-8. Click on the **Apps** link and follow the prompts to create a new application . This action will provide you with a new client id and secret.
-9. Click on the **Browse API** link to subscribe to the Pokemon product. Follow the prompts to subscribe to the default plan. 
-10. You can now test the Pokemon API as you have done using the built-in test tool but using a different client id. You should get the same response.
+10. Click on the **Apps** link and follow the prompts to create a new application . This action will provide you with a new client id and secret.
+11. Click on the **Browse API** link to subscribe to the Pokemon product. Follow the prompts to subscribe to the default plan. 
+12. You can now test the Pokemon API as you have done using the built-in test tool but using a different client id. You should get the same response.
 
 ## Summary
 
