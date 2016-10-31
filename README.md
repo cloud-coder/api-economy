@@ -13,7 +13,7 @@ Business services are exposed with APIs. An API management solution is imperativ
 
 IBM API Connect delivers a complete API platform to Create + Run + Secure + Manage API services. You can create new API services and natively connect to datasources, such as databases or securely expose existing REST / SOAP services as API services. It provides detailed analytics and operational metrics to the business owner and a customizable developer portal to socialize the APIs.
 
-![Pokemon](images/apiconnect_logo.png)
+![Pokemon](images/apiconnect.png)
 
 ### Table of Contents
 
