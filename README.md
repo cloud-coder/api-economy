@@ -3,6 +3,7 @@
 ## Pre requisites
 
 * IBM Bluemix account
+* Google Chrome
 
 ## Overview
 
@@ -11,6 +12,8 @@ To be a successful business and provide increased value to your consumers, one n
 Business services are exposed with APIs. An API management solution is imperative to the success of externalizing the core services by providing easy assembly of new APIs, enabling security and different levels of service, providing management and insight to developers and business users, and socializing those APIs to developers, through communities and portals. This enables organizations to participate in the API economy, with rapid, highly secure connections between API providers and API consumers.
 
 IBM API Connect delivers a complete API platform to Create + Run + Secure + Manage API services. You can create new API services and natively connect to datasources, such as databases or securely expose existing REST / SOAP services as API services. It provides detailed analytics and operational metrics to the business owner and a customizable developer portal to socialize the APIs.
+
+![Pokemon](images/apiconnect_logo.png)
 
 ### Table of Contents
 
@@ -24,6 +27,8 @@ IBM API Connect delivers a complete API platform to Create + Run + Secure + Mana
 ## Create an API definition
 
 In this section, you will create a quick API definition to expose an existing REST service as an API service.
+
+![Pokemon](images/pokemon.png)
 
 1. Let's try to catch some virtual __Pokemon__ (this is what everyone is doing in 2016!). You will create an API definition to proxy an existing Pokemon service. Let's first directly call the backend service to make sure it is available, [https://pokemons.mybluemix.net/api/pokemons/](https://pokemons.mybluemix.net/api/pokemons/). You can use any test client (even a Web browser). It should return the following (just showing the first item in the response for brevity):
 	```
@@ -50,29 +55,28 @@ In this section, you will create a quick API definition to expose an existing RE
 
 	![New API from Scratch](images/new-api-1.png)
 
-	3. Click **Additional properties**.
+	3. You can create a product (method to package multiple APIs together) directly from this panel. Click **Additional properties**.
  	4. Click **Add Product** and leave the defaults.
 
 	 ![New API from Scratch](images/new-api-2.png)
  	5. Click **Create API**.
   	
 	  This will create an API product with the REST API definition for the Pokemon service.
-7. Select **Security Definitions** in the left panel, change the **clientIdHeader (API Key)** location from **Header** to **Query**.
+7. For easier testing via a Web browser, change the method to extract the client ID from the query parameter instead of an HTTP header. Select **Security Definitions** in the left panel, change the **clientIdHeader (API Key)** location from **Header** to **Query**.
 
 	![Security Definitions](images/clientIdHeader.png)
 	
-8. Select **Paths** in the left panel, Click **+ Add** and enter `/pokemon` for the path. Leave the GET parameter. You can add more operations (PUT, POST, DELETE, etc..) if needed, but for now, let's use the GET operation only.
-9. Click the **Assemble** link at the top. A default action called **invoke** is pre-configured. Select the **invoke** action and change the URL to https://pokemons.mybluemix.net/api/pokemons. 
+8. Select **Paths** in the left panel, Click **+ Add** and enter `/pokemon` for the path. Leave the GET parameter. You can add more operations (PUT, POST, DELETE, etc..) if needed, but for now, let's use the GET operation only. This is the second-level URI (ie /api/pokemon). You had defined the global URI (/api) in a previous step.
+9. Click the **Assemble** link at the top. A default action called **invoke** is pre-configured. Select the **invoke** action and change the URL to https://pokemons.mybluemix.net/api/pokemons. Click 'X' to close the panel.
 
 	![Invoke](images/invoke.png)
 10. Click **Save** (icon at top right-hand corner) to persist your changes.
 
 ## Publish an API definition
 
-1. Click **All APIs** to back to the Drafts page. Click **Products** and the existing **pokemon product**. In the top right corner, click ![Stage](images/stage1.png) and stage the API product to the **Sandbox**. This step enables consumers to register and test the API service. 
-
+1. Click **All APIs** to back to the Drafts page. Click **Products** and the existing **pokemon product**. In the top right corner, click ![Stage](images/stage1.png) to stage the API product to the **Sandbox**. This step enables consumers to register and test the API service. 
 	
-   **Note**: Once a product is staged, it is not formally available until it has been published. This step is usually performed by an API administrator. Since we are playing all the roles (its hello world!), you will complete this step.
+   **Note**: Once a product is staged, it's not formally available until it has been published. This step is usually performed by an API administrator. Since we are playing all the roles (its hello world!), you will complete this step.
 2. Click the Hamburger icon ![Nav Bar](images/hamburger.png) on the left-hander corner and select **Dashboard**. Click the **Sandbox** catalog.
 3. In the pokemon product row, click the ... and select **Publish**. Leave the default visibility values and click the **Publish** button. Any changes to the API definition requires you to repeat these steps.
 
@@ -103,10 +107,12 @@ The API Assembly feature within API Connect provides a collection of policies wh
 
 In this section, you will log the API message into the API analytics engine to gain insight into your API.
 
-1. Switch back to the **Assemble** tab.
+1. Go back to the Drafts page (via ![Nav Bar](images/hamburger.png)) and select **APIS -> pokemon 1.0.0** API. Click the **Assemble** tab.
 2. _Add an **activity-log** policy to the assembly_: Drag the **activity-log** policy from the list of available policies to the right of the invoke policy already created in your assembly.
 3. _Configure it to log API payload_: Select the newly added activity-log step. A properties menu will open on the right of your screen. Under **Content** select **payload** from the drop-down list.
+
 	![Activity](images/activity.png)
+
 4. Click on the X icon to close the activity-log editor menu.
 5. Save your changes.
 6. Restage and deploy the pokemon product. The instructions are mentioned here again, but you will need to remember these steps next time you perform the same action. 
@@ -114,7 +120,7 @@ In this section, you will log the API message into the API analytics engine to g
 >	2. Click the Hamburger icon on the left-hander corner and select **Dashboard**. Click the **Sandbox** catalog.
 >	3. In the pokemon product row, click the ... and select **Publish**. Leave the default visibility values and click the **Publish** button. Any changes to the API definition requires you to repeat these steps.
 
-### Verify activity logging in the API Analytics
+### Verify activity logging in the API Analytics (Optional)
 
 1. Send a sample message to return Pokemon data.
 2. The Analytics data is collected under the common Dashboards. Click the Hamburger icon on the left-hander corner and select **Dashboard**. 
@@ -147,19 +153,18 @@ Let's first directly call the backend service to make sure its available, [https
 4. Click **Add Parameter** and describe the `{id}` parameter with the following:
 	1. Name: id
 	2. Located in: Path
-5. Notice that the response is a JSON object. If you wanted to define a more specific JSON schema, you can create a definition object with the Pokemon attributes. For now, let's leave the defaults so you don't let those Pokemon run away!
+5. Click the **GET /pokemon/{id}** box and scroll down to the response schema. Notice that the response is a **object** (ie JSON). If you wanted to define a more specific JSON schema, you can create a definition object with the Pokemon attributes. For now, let's leave the defaults so you don't let those Pokemon run away!
 
 	![New Operation](images/operation.png)
 
 6. Save the changes.
-7. Switch to the Assembly.
-8. Drag the Operation Switch to the action before the Invoke.
-9. Select the dropdown beside **Case** and select `get /pokemon`. 
-10. Click **Add Case** and add select `get /pokemon/{id}`. 
+7. Click the Assembly tab at the top.
+8. Drag the **Operation Switch** to the action before the Invoke.
+9. Select the dropdown beside **Case** and select `get /pokemon`.
+10. Click **+ Case** and select `get /pokemon/{id}`. 
 11. Click the X button to close the action. At this point both operations use the same assembly. The `get /pokemon/{id}` requires a different endpoint to be invoked that obtains an individual pokemon instead of all pokemons.
 12. Drag the existing Invoke action to the `get /pokemon` operation.
 13. Drag another Invoke action into the case for `get /pokemon/{id}` and enter the URL https://pokemons.mybluemix.net/api/pokemons/{id}. Uncheck `Stop on error` since you won't define any error handling logic.
-14. Scroll down to the bottom of the Invoke action, under response object variable, enter `pokemon`. 
 14. Both cases should use the activity-log. In the next section, you will add an action specific to the `get /pokemon/{id}` flow.
 
 	![Assembly](images/assembly.png)
@@ -202,6 +207,7 @@ In this section, you will enrich the runtime **response** API payload using Java
 	}
 	```
 6. Click **> Test**. You should get the same Pokemon JSON response but with a new attribute called `platform` with the value `Powered by IBM API Connect`.
+
 	![Assembly](images/playground.png)
 
 	You are now ready to apply the similar code to a GatewayScript action in API Connect.
@@ -210,10 +216,11 @@ In this section, you will enrich the runtime **response** API payload using Java
 9. Add a GatewayScript action to the  `get /pokemon/{id}` case.
 
 	![Assembly](images/gatewayscript.png)
+
 10. You will need to make some changes to the previous code for API Connect. The API Connect framework provides a simplified GatewayScript API to interact with the runtime API payload.  The API framework documentation is available [here](http://www.ibm.com/support/knowledgecenter/SSMNED_5.0.0/com.ibm.apic.toolkit.doc/rapim_context_var.html). Copy the following code into the GatewayScript action:
 	```
     //APIC: get the payload
-	var json = apim.getvariable('pokemon.body');
+	var json = apim.getvariable('message.body');
 	console.error("json %s", JSON.stringify(json));
     
 	//same: code to inject new attribute 
@@ -222,17 +229,19 @@ In this section, you will enrich the runtime **response** API payload using Java
 	//APIC: set the payload
 	apim.setvariable('message.body', json);
 	``` 
-	The code snippets with `APIC` indicate the new code that was used to replace the previous code to get and set the payload. All other code remains the same. The API Connect framework takes care of reading the input message and setting the response back to the consumer. Note that the context variable `pokemon` (from `pokemon.body`) is the same value as the Invoke action, response object variable. The `message` context variable (from `message.body`) is a default context that tracks the modified message.
+	The code snippets with `APIC` indicate the new code that was used to replace the previous code to get and set the payload. All other code remains the same. The API Connect framework takes care of reading the input message and setting the response back to the consumer. 
+
+	The `message` context variable (from `message.body`) is a default context that tracks the modified message.
 11. Click on the X to close the editor menu.
-12. Save your changes.
-13. Restage and deploy the pokemon product. 
-14. Test your service again and make sure it returns the same Pokemon data but with a new attribute, `platform` containing `Powered by IBM Connect`.
+13. Save your changes.
+14. Restage and deploy the pokemon product. 
+15. Test your service again and make sure it returns the same Pokemon data but with a new attribute, `platform` containing `Powered by IBM Connect`.
 
 **Important**
 Context variables in the API assembly allow you to access runtime information:
 * request: pre-built context variable provides the original request message
 * message: pre-built context variable provides access to the current message in the assembly
-* pokemon: custom context variable created for storing the response from the Invoke action.
+* custom: context variable that is created in an Invoke action and used in subsequent actions, such as GatewayScript.
 
 Each context variable has additional attributes such as `body`, `headers`, etc ... that provide information about different runtime context.
 
@@ -277,7 +286,7 @@ In this section, you will learn the consumer experience for APIs that have been 
 6. You should see the published Pokemon API in the list of products.
 7. Click the Pokemon link and examine the available API operations. Each API definition provides sample commands / snippets to quickly test your API service. 
 
-![Assembly](images/portal.png)
+	![Assembly](images/portal.png)
 
 8. Click on the **Apps** link and follow the prompts to create a new application . This action will provide you with a new client id and secret.
 9. Click on the **Browse API** link to subscribe to the Pokemon product. Follow the prompts to subscribe to the default plan. 
